@@ -14,6 +14,7 @@ public class Board {
     String coord2;
     int x2;
     int y2;
+    String direction;
 
     public void printBoard() {
         for (int i = 0; i < numRows; i++) {
@@ -31,12 +32,25 @@ public class Board {
             coord1 = scan.nextLine();
             x1 = (int) (coord1.charAt(1)) - '1';
             y1 = (int) (coord1.charAt(6)) - '1';
-            game[x1][y1] = ship;
+            game[x1][y1] = '*';
+
             System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship ([_], [_]): ");
             coord2 = scan.nextLine();
             x2 = (int) (coord1.charAt(1)) - '1';
             y2 = (int) (coord1.charAt(6)) - '1';
-            game[x2][y2] = ship;
+            game[x2][y2] = '*';
+
+            if (x1 == x2) {
+                for (int i = 0; i < y2 - y1; i++) {
+                    game[x1][i] = '*';
+                }
+            }
+            else if (y1 == y2) {
+                direction = "col";
+                for (int i = 0; i < x2 - x1; i++) {
+                    game[i][y1] = '*';
+                }
+            }
     }
         }
         
