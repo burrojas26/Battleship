@@ -6,6 +6,7 @@ public class Board {
     int numCols = 10;
     int[] ships = {2, 3, 3, 4, 5};
     int[][] game = new int[numRows][numCols];
+    int[][] compGame = new int[numRows][numCols];
 
     // Set up vars
     String coord1;
@@ -24,7 +25,15 @@ public class Board {
             }
             System.out.println("");
         }
-    
+    }
+
+    public void printCompBoard() {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                System.out.print(compGame[i][j] + " ");
+            }
+            System.out.println("");
+        }
     }
 
     public void setup() {
@@ -54,29 +63,31 @@ public class Board {
             }
         }
 
+        /* 
         for (int ship = 0; ship < ships.length; ship++) {
-            y1 = (int) (Math.random()*10) + 1;
-            x1 = (int) (Math.random()*10) + 1;
-            game[y1][x1] = 1;
+            y1 = (int) (Math.random()*10);
+            x1 = (int) (Math.random()*10);
+            compGame[y1][x1] = 1;
 
-            compDirection = (int) (Math.random()) + 1;
+            compDirection = (int) (Math.random());
             if (compDirection == 1) {
                 y2 = y1;
                 x2 = x1+(int)(ships[ship]);
-                game[y2][x2] = 1;
+                compGame[y2][x2] = 1;
                 for (int i = 0; i < x2 - x1; i++) {
-                    game[y1][i] = 1;
+                    compGame[y1][i] = 1;
                 }
             }
             else if (compDirection == 0) {
                 x2 = x1;
                 y2 = y1+(int)(ships[ship]);
-                game[y2][x2] = 1;
+                compGame[y2][x2] = 1;
                 for (int i = 0; i < y2 - y1; i++) {
-                    game[i][x1] = 1;
+                    compGame[i][x1] = 1;
                 }
             }
         }
+        */
     }
         
 
