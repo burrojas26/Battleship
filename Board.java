@@ -15,6 +15,7 @@ public class Board {
     int x2;
     int y2;
     String direction;
+    int compDirection;
 
     public void printBoard() {
         for (int i = 0; i < numRows; i++) {
@@ -51,8 +52,32 @@ public class Board {
                     game[i][x1] = 1;
                 }
             }
-    }
         }
+
+        for (int ship = 0; ship < ships.length; ship++) {
+            y1 = (int) (Math.random()*10) + 1;
+            x1 = (int) (Math.random()*10) + 1;
+            game[y1][x1] = 1;
+
+            compDirection = (int) (Math.random()) + 1;
+            if (compDirection == 1) {
+                y2 = y1;
+                x2 = x1+(int)(ships[ship]);
+                game[y2][x2] = 1;
+                for (int i = 0; i < x2 - x1; i++) {
+                    game[y1][i] = 1;
+                }
+            }
+            else if (compDirection == 0) {
+                x2 = x1;
+                y2 = y1+(int)(ships[ship]);
+                game[y2][x2] = 1;
+                for (int i = 0; i < y2 - y1; i++) {
+                    game[i][x1] = 1;
+                }
+            }
+        }
+    }
         
 
     public void play() {
