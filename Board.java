@@ -51,15 +51,20 @@ public class Board {
             game[y2][x2] = 1;
 
             if (y1 == y2) {
-                for (int i = 0; i < x2 - x1; i++) {
+                if (x2-x1 != (int)(ships[ship])) {
+                    for (int i = 0; i < x2 - x1; i++) {
                     game[y1][i] = 1;
+                    }
                 }
+                
             }
             else if (x1 == x2) {
-                direction = "col";
-                for (int i = 0; i < y2 - y1; i++) {
+                if (x2-x1 != (int)(ships[ship])) {
+                    for (int i = 0; i < y2 - y1; i++) {
                     game[i][x1] = 1;
+                    }
                 }
+                
             }
         }
 
