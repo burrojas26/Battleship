@@ -39,13 +39,14 @@ public class Board {
 
     public void setup() {
         for (int ship = 0; ship < ships.length; ship++) {
-            while (overLap == true) {
-                System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
-                coord1 = scan.nextLine();
-                y1 = (int) (coord1.charAt(0)) - '1';
-                x1 = (int) (coord1.charAt(3)) - '1';
-                game[y1][x1] = 1;
+            overLap = true;
+            System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
+            coord1 = scan.nextLine();
+            y1 = (int) (coord1.charAt(0)) - '1';
+            x1 = (int) (coord1.charAt(3)) - '1';
+            game[y1][x1] = 1;
 
+            while (overLap == true) {
                 System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
                 coord2 = scan.nextLine();
                 y2 = (int) (coord2.charAt(0)) - '1';
@@ -53,7 +54,7 @@ public class Board {
                 game[y2][x2] = 1;
 
                 if (y1 == y2) {
-                    if (x2-x1 != (int)(ships[ship]) - 1) {
+                    if (x2-x1 == (int)(ships[ship]) - 1) {
                         overLap = false;
                         for (int i = 0; i < x2 - x1; i++) {
                         game[y1][i] = 1;
@@ -62,7 +63,7 @@ public class Board {
                     
                 }
                 else if (x1 == x2) {
-                    if (y2-y1 != (int)(ships[ship]) - 1) {
+                    if (y2-y1 == (int)(ships[ship]) - 1) {
                         overLap = false;
                         for (int i = 0; i < y2 - y1; i++) {
                         game[i][x1] = 1;
@@ -105,3 +106,9 @@ public class Board {
 
     }
 }
+
+
+
+
+
+
