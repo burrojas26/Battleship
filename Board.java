@@ -102,25 +102,34 @@ public class Board {
         
     public void compSetup() {
         for (int ship = 0; ship < ships.length; ship++) {
-            y1 = (int) (Math.random()*10);
-            x1 = (int) (Math.random()*10);
-            compGame[y1][x1] = 1;
+            overLap = true;
+            while (overLap == true) {
+                y1 = (int) (Math.random()*(10-ships[ship]));
+                x1 = (int) (Math.random()*(10-ships[ship]));
+                compGame[y1][x1] = 1;
 
-            compDirection = (int) (Math.random()*2);
-            if (compDirection == 1) {
-                y2 = y1;
-                x2 = x1+(int)(ships[ship]);
-                compGame[y2][x2] = 1;
-                for (int i = 0; i < x2 - x1; i++) {
-                    compGame[y1][i] = 1;
+                compDirection = (int) (Math.random()*2);
+                if (compDirection == 1) {
+                    y2 = y1;
+                    x2 = x1+(int)(ships[ship]);
+                    compGame[y2][x2] = 1;
+                    for (int i = 0; i < x2 - x1; i++) {
+                        compGame[y1][i] = 1;
+                    }
                 }
-            }
-            else if (compDirection == 0) {
-                x2 = x1;
-                y2 = y1+(int)(ships[ship]);
-                compGame[y2][x2] = 1;
-                for (int i = 0; i < y2 - y1; i++) {
-                    compGame[i][x1] = 1;
+                else if (compDirection == 0) {
+                    x2 = x1;
+                    y2 = y1+(int)(ships[ship]);
+                    compGame[y2][x2] = 1;
+                    for (int i = 0; i < y2 - y1; i++) {
+                        //Check to make sure ships do not overlap
+                        if (game[i][x1] == 0) {
+                            game[i][x1] = 1;
+                        }
+                        else {
+                        overLap = true;
+                        }
+                    }
                 }
             }
         }
