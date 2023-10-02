@@ -19,6 +19,7 @@ public class Board {
     int compDirection;
     boolean overLap = true;
 
+    //Prints the board
     public void printBoard() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
@@ -28,6 +29,7 @@ public class Board {
         }
     }
 
+    //prints the cmputer's board
     public void printCompBoard() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
@@ -37,7 +39,9 @@ public class Board {
         }
     }
 
+    // Sets up the player's ships based on their input
     public void setup() {
+        //Iterates through all the ships for the player to place them
         for (int ship = 0; ship < ships.length; ship++) {
             overLap = true;
             System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
@@ -46,6 +50,7 @@ public class Board {
             x1 = (int) (coord1.charAt(3)) - '1';
             game[y1][x1] = 1;
 
+            //Checks if the input has valid coordinates for the size of the ships
             while (overLap == true) {
                 System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
                 coord2 = scan.nextLine();
@@ -53,12 +58,23 @@ public class Board {
                 x2 = (int) (coord2.charAt(3)) - '1';
                 game[y2][x2] = 1;
 
+                //Determines the direction of the ships 
                 if (y1 == y2) {
                     if (x2-x1 == (int)(ships[ship]) - 1) {
                         overLap = false;
                         for (int i = 0; i < x2 - x1; i++) {
-                        game[y1][i] = 1;
+                            //Check to make sure ships do not overlap
+                            if (game[y1][i] == 0) {
+                                game[y1][i] = 1;
+                            }
+                            else {
+                               System.out.println("Incompatible coordinate, please try again"); 
+                               overLap = true;
+                            }
                         }
+                    }
+                    else {
+                        System.out.println("Incompatible coordinate, enter the last coordinate again");
                     }
                     
                 }
@@ -66,21 +82,31 @@ public class Board {
                     if (y2-y1 == (int)(ships[ship]) - 1) {
                         overLap = false;
                         for (int i = 0; i < y2 - y1; i++) {
-                        game[i][x1] = 1;
+                            //Check to make sure ships do not overlap
+                            if (game[i][x1] == 0) {
+                                game[i][x1] = 1;
+                            }
+                            else {
+                               System.out.println("Incompatible coordinate, please try again"); 
+                               overLap = true;
+                            }
                         }
                     }
-                    
+                    else {
+                        System.out.println("Incompatible coordinate, enter the last coordinate again");
+                    }
                 }
             }
         }
-
-        /* 
+    }
+        
+    public void compSetup() {
         for (int ship = 0; ship < ships.length; ship++) {
             y1 = (int) (Math.random()*10);
             x1 = (int) (Math.random()*10);
             compGame[y1][x1] = 1;
 
-            compDirection = (int) (Math.random());
+            compDirection = (int) (Math.random()*2);
             if (compDirection == 1) {
                 y2 = y1;
                 x2 = x1+(int)(ships[ship]);
@@ -98,10 +124,21 @@ public class Board {
                 }
             }
         }
-        */
     }
-        
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void play() {
 
     }
