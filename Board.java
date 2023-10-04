@@ -64,7 +64,7 @@ public class Board {
                 if (y1 == y2) {
                     if (x2-x1 == (int)(ships[ship]) - 1) {
                         overLap = false;
-                        for (int i = 1; i < x2 - x1; i++) {
+                        for (int i = 0; i <= x2 - x1; i++) {
                             //Check to make sure ships do not overlap
                             if (game[y1][i+x1] == 0) {
                                 compatible = true;
@@ -75,7 +75,7 @@ public class Board {
                             }
                         }
                         if (compatible) {
-                            for (int i = 0; i < x2 - x1; i++) {
+                            for (int i = 0; i <= x2 - x1; i++) {
                                 //Places the whole ship
                                 game[y1][i+x1] = 1;
                             }
@@ -90,7 +90,7 @@ public class Board {
                     System.out.println("If statement: " + (y2-y1 == (int)(ships[ship]) - 1));
                     if (y2-y1 == (int)(ships[ship]) - 1) {
                         overLap = false;
-                        for (int i = 1; i < y2 - y1; i++) {
+                        for (int i = 0; i <= y2 - y1; i++) {
                             //Check to make sure ships do not overlap
                             if (game[i+y1][x1] == 0) {
                                 compatible = true;
@@ -101,7 +101,7 @@ public class Board {
                             }
                         }
                         if (compatible) {
-                            for (int i = 0; i < y2 - y1; i++) {
+                            for (int i = 0; i <= y2 - y1; i++) {
                                 //Places the whole ship
                                 game[i+y1][x1] = 1;
                             }
