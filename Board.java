@@ -18,6 +18,7 @@ public class Board {
     String direction;
     int compDirection;
     boolean overLap = true;
+    boolean compatible = false;
 
     //Prints the board
     public void printBoard() {
@@ -44,32 +45,39 @@ public class Board {
         //Iterates through all the ships for the player to place them
         for (int ship = 0; ship < ships.length; ship++) {
             overLap = true;
+            compatible = false;
             //Checks if the input has valid coordinates for the size of the ships
             while (overLap == true) {
-                System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
-                coord1 = scan.nextLine();
-                y1 = (int) (coord1.charAt(0)) - '1';
+                System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
+                coord1 = scan.nextLine().toUpperCase();
+                y1 = (int) (coord1.charAt(0)) - 'A';
                 x1 = (int) (coord1.charAt(3)) - '1';
-                game[y1][x1] = 1;
+                //game[y1][x1] = 1;
 
-                System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (_, _): ");
-                coord2 = scan.nextLine();
-                y2 = (int) (coord2.charAt(0)) - '1';
+                System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
+                coord2 = scan.nextLine().toUpperCase();
+                y2 = (int) (coord2.charAt(0)) - 'A';
                 x2 = (int) (coord2.charAt(3)) - '1';
-                game[y2][x2] = 1;
+                //game[y2][x2] = 1;
 
                 //Determines the direction of the ships 
                 if (y1 == y2) {
                     if (x2-x1 == (int)(ships[ship]) - 1) {
                         overLap = false;
-                        for (int i = 0; i < x2 - x1; i++) {
+                        for (int i = 1; i < x2 - x1; i++) {
                             //Check to make sure ships do not overlap
-                            if (game[y1][i] == 0) {
-                                game[y1][i] = 1;
+                            if (game[y1][i+x1] == 0) {
+                                compatible = true;
                             }
                             else {
                                System.out.println("Incompatible coordinate, please try again"); 
                                overLap = true;
+                            }
+                        }
+                        if (compatible) {
+                            for (int i = 0; i < x2 - x1; i++) {
+                                //Places the whole ship
+                                game[y1][i+x1] = 1;
                             }
                         }
                     }
@@ -79,22 +87,32 @@ public class Board {
                     
                 }
                 else if (x1 == x2) {
+                    System.out.println("If statement: " + (y2-y1 == (int)(ships[ship]) - 1));
                     if (y2-y1 == (int)(ships[ship]) - 1) {
                         overLap = false;
-                        for (int i = 0; i < y2 - y1; i++) {
+                        for (int i = 1; i < y2 - y1; i++) {
                             //Check to make sure ships do not overlap
-                            if (game[i][x1] == 0) {
-                                game[i][x1] = 1;
+                            if (game[i+y1][x1] == 0) {
+                                compatible = true;
                             }
                             else {
                                System.out.println("Incompatible coordinate, please try again"); 
                                overLap = true;
                             }
                         }
+                        if (compatible) {
+                            for (int i = 0; i < y2 - y1; i++) {
+                                //Places the whole ship
+                                game[i+y1][x1] = 1;
+                            }
+                        }
                     }
                     else {
                         System.out.println("Incompatible coordinate, enter the last coordinate again");
                     }
+                }
+                else {
+                   System.out.println("Incompatible coordinate, please try again"); 
                 }
             }
         }
