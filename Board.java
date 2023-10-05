@@ -19,6 +19,7 @@ public class Board {
     int compDirection;
     boolean overLap = true;
     boolean compatible = false;
+    int midpt;
 
     //Prints the board
     public void printBoard() {
@@ -50,15 +51,19 @@ public class Board {
             while (overLap == true) {
                 System.out.println("What is the first coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
                 coord1 = scan.nextLine().toUpperCase();
+                //Gets the index of the comma so it can split the number off from the str
+                midpt = coord1.indexOf(",");
                 y1 = (int) (coord1.charAt(0)) - 'A';
-                x1 = (int) (coord1.charAt(3)) - '1';
-                //game[y1][x1] = 1;
+                //Uses substring method because I could nt get the parseInt method to work with other chars in the string
+                x1 = Integer.parseInt(coord1.substring(midpt+2));
 
                 System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
                 coord2 = scan.nextLine().toUpperCase();
+                //Gets the index of the comma so it can split the number off from the str
+                midpt = coord1.indexOf(",");
                 y2 = (int) (coord2.charAt(0)) - 'A';
-                x2 = (int) (coord2.charAt(3)) - '1';
-                //game[y2][x2] = 1;
+                //Uses substring method because I could nt get the parseInt method to work with other chars in the string
+                x2 = Integer.parseInt(coord2.substring(midpt+2));
 
                 //Determines the direction of the ships 
                 if (y1 == y2) {
@@ -158,12 +163,12 @@ public class Board {
                         }
                         else {
                         overLap = true;
-                        }
-                    }
-                }
-            }
-        }
-    }
+                        }//closes else loop
+                    } //closes for loop
+                } //closes else if
+            } //Closes while loop
+        } //Closes for loop
+    } //Closes the computer setup method
     
     
     
