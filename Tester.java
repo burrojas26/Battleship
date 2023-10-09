@@ -2,8 +2,8 @@ public class Tester {
     public static void main(String[] args) {
         Board b1 = new Board();
         //b1.compSetup();
-        b1.setup();
-        b1.printBoard();
+        b1.compSetup();
+        b1.printCompBoard();
 
     }
 }

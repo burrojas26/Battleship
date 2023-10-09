@@ -55,7 +55,7 @@ public class Board {
                 midpt = coord1.indexOf(",");
                 y1 = (int) (coord1.charAt(0)) - 'A';
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
-                x1 = Integer.parseInt(coord1.substring(midpt+2));
+                x1 = Integer.parseInt(coord1.substring(midpt+2)) - 1;
 
                 System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
                 coord2 = scan.nextLine().toUpperCase();
@@ -63,9 +63,9 @@ public class Board {
                 midpt = coord1.indexOf(",");
                 y2 = (int) (coord2.charAt(0)) - 'A';
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
-                x2 = Integer.parseInt(coord2.substring(midpt+2));
+                x2 = Integer.parseInt(coord2.substring(midpt+2)) - 1;
 
-                //Determines the direction of the ships 
+                //Determines the direction of the ships and fills in all pegs occupied by the ship
                 if (y1 == y2) {
                     if (x2-x1 == (int)(ships[ship]) - 1) {
                         overLap = false;
@@ -123,48 +123,56 @@ public class Board {
         }
     }
         
+    //Sets up the ai's ships on its grid
     public void compSetup() {
         for (int ship = 0; ship < ships.length; ship++) {
             overLap = true;
-            while (overLap == true) {
+            while (overLap) {
+                compatible = true;
+                //creates a random starting coordinate that will not exceed the board
                 y1 = (int) (Math.random()*(10-ships[ship]));
                 x1 = (int) (Math.random()*(10-ships[ship]));
-                compGame[y1][x1] = 1;
 
                 compDirection = (int) (Math.random()*2);
+                //After creating random direction, checks which direction and then fills in the correct amount of pegs
+                //Fills in pegs if the ship is horizontal
                 if (compDirection == 1) {
                     y2 = y1;
-                    x2 = x1+(int)(ships[ship]);
-                    compGame[y2][x2] = 1;
-                    System.out.println("(" + x1 + ", " + y1 + ")");
-                    System.out.println("(" + x2 + ", " + y2 + ")");
+                    x2 = x1+((int)(ships[ship]));
                     for (int i = 0; i < x2 - x1; i++) {
                         //Check to make sure ships do not overlap
-                        if (game[y1][i+x1] == 0) {
-                            game[y1][i+x1] = 1;
-                            overLap = false;
+                        if (compGame[y1][i+x1] != 0) {
+                            compatible = false;
                         }
-                        else {
-                        overLap = true;
+                    }
+                    if (compatible) {
+                        overLap = false;
+                        for (int i = 0; i < x2 - x1; i++) {
+                            //Places the whole ship
+                            compGame[y1][i+x1] = ships[ship];
                         }
                     }
                 }
+                //Fills in the pegs if the ship is vertical
                 else if (compDirection == 0) {
                     x2 = x1;
-                    y2 = y1+(int)(ships[ship]);
-                    compGame[y2][x2] = 1;
-                    System.out.println("(" + x1 + ", " + y1 + ")");
-                    System.out.println("(" + x2 + ", " + y2 + ")");
+                    y2 = y1+((int)(ships[ship]));
                     for (int i = 0; i < y2 - y1; i++) {
                         //Check to make sure ships do not overlap
-                        if (game[i+y1][x1] == 0) {
-                            game[i+y1][x1] = 1;
-                            overLap = false;
+                        if (compGame[i+y1][x1] != 0) {
+                            overLap = true;
+                            compatible = false;
                         }
                         else {
-                        overLap = true;
+                            overLap = false;
                         }//closes else loop
                     } //closes for loop
+                    if (compatible) {
+                        for (int i = 0; i < y2 - y1; i++) {
+                            //Places the whole ship
+                            compGame[i+y1][x1] = ships[ship];
+                        } // closes for loop
+                    } //closes compatible if statement
                 } //closes else if
             } //Closes while loop
         } //Closes for loop
