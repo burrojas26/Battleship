@@ -81,8 +81,8 @@ public class Board {
                         }
                         if (compatible) {
                             for (int i = 0; i <= x2 - x1; i++) {
-                                //Places the whole ship
-                                game[y1][i+x1] = 1;
+                                //Places the whole ship as the number of pegs it takes up
+                                game[y1][i+x1] = ships[ship];
                             }
                         }
                     }
@@ -92,7 +92,6 @@ public class Board {
                     
                 }
                 else if (x1 == x2) {
-                    System.out.println("If statement: " + (y2-y1 == (int)(ships[ship]) - 1));
                     if (y2-y1 == (int)(ships[ship]) - 1) {
                         overLap = false;
                         for (int i = 0; i <= y2 - y1; i++) {
@@ -107,8 +106,8 @@ public class Board {
                         }
                         if (compatible) {
                             for (int i = 0; i <= y2 - y1; i++) {
-                                //Places the whole ship
-                                game[i+y1][x1] = 1;
+                                //Places the whole ship as number of pegs it takes up
+                                game[i+y1][x1] = ships[ship];
                             }
                         }
                     }
