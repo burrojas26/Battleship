@@ -54,6 +54,14 @@ public class Board {
                 //Gets the index of the comma so it can split the number off from the str
                 midpt = coord1.indexOf(",");
                 y1 = (int) (coord1.charAt(0)) - 'A';
+                //Checking to see if the input was a number and then converting it back to a number
+                if (y1 >= -16 && y1 <= -8) {
+                    y1 += 'A';
+                    y1 -=  '1';
+                }
+                else if (y1 < 0) {
+                    continue;
+                }
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
                 x1 = Integer.parseInt(coord1.substring(midpt+2)) - 1;
 
@@ -62,6 +70,14 @@ public class Board {
                 //Gets the index of the comma so it can split the number off from the str
                 midpt = coord1.indexOf(",");
                 y2 = (int) (coord2.charAt(0)) - 'A';
+                //Checking to see if the input was a number and then converting it back to a number
+                if (y2 >= -16 && y2 <= -8) {
+                    y2 += 'A';
+                    y2 -= '1';
+                }
+                else if (y2 < 0) {
+                    continue;
+                }
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
                 x2 = Integer.parseInt(coord2.substring(midpt+2)) - 1;
 
