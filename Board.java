@@ -53,29 +53,40 @@ public class Board {
                 coord1 = scan.nextLine().toUpperCase();
                 //Gets the index of the comma so it can split the number off from the str
                 midpt = coord1.indexOf(",");
-                y1 = (int) (coord1.charAt(0)) - 'A';
-                //Checking to see if the input was a number and then converting it back to a number
-                if (y1 >= -16 && y1 <= -8) {
-                    y1 += 'A';
-                    y1 -=  '1';
-                }
-                else if (y1 < 0) {
+                if (coord1.length() < 4) {
+                    System.out.println("Incompatible coordinates. Please try again.");
                     continue;
                 }
+                y1 = (int) (coord1.charAt(0));
+                //Checking to see if the input was a number and then converting it back to a number
+                //A = 65
+                //J = 74
+                //Checks to make sure the coordinate is in the range
+                if (y1 >= 65 && y1 <= 74) {
+                    y1 -= 'A';
+                }
+                else {
+                    System.out.println("Incompatible coordinates. Please try again.");
+                    continue;
+                }
+                
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
                 x1 = Integer.parseInt(coord1.substring(midpt+2)) - 1;
 
                 System.out.println("What is the last coordinate where you want to place your " + ships[ship] + " peg ship (letter, number): ");
                 coord2 = scan.nextLine().toUpperCase();
                 //Gets the index of the comma so it can split the number off from the str
-                midpt = coord1.indexOf(",");
-                y2 = (int) (coord2.charAt(0)) - 'A';
-                //Checking to see if the input was a number and then converting it back to a number
-                if (y2 >= -16 && y2 <= -8) {
-                    y2 += 'A';
-                    y2 -= '1';
+                midpt = coord2.indexOf(",");
+                if (coord2.equals("")) {
+                    System.out.println("Incompatible coordinates. Please try again.");
+                    continue;
                 }
-                else if (y2 < 0) {
+                y2 = (int) (coord2.charAt(0));
+                //Checks to make sure the coordinate is in the range
+                if (y2 >= 65 && y2 <= 74) {
+                    y2 -= 'A';
+                }
+                else if (y2 < 31 || (y2 > 39 && y2 < 41)) {
                     continue;
                 }
                 //Uses substring method because I could nt get the parseInt method to work with other chars in the string
