@@ -6,7 +6,6 @@ public class Board {
     int numCols = 10;
     int[] ships = {2, 3, 3, 4, 5};
     int[][] game = new int[numRows][numCols];
-    int[][] compGame = new int[numRows][numCols];
 
     // Set up vars
     String coord1;
@@ -26,16 +25,6 @@ public class Board {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 System.out.print(game[i][j] + " ");
-            }
-            System.out.println("");
-        }
-    }
-
-    //prints the cmputer's board
-    public void printCompBoard() {
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                System.out.print(compGame[i][j] + " ");
             }
             System.out.println("");
         }
@@ -167,7 +156,7 @@ public class Board {
                     x2 = x1+((int)(ships[ship]));
                     for (int i = 0; i < x2 - x1; i++) {
                         //Check to make sure ships do not overlap
-                        if (compGame[y1][i+x1] != 0) {
+                        if (game[y1][i+x1] != 0) {
                             compatible = false;
                         }
                     }
@@ -175,7 +164,7 @@ public class Board {
                         overLap = false;
                         for (int i = 0; i < x2 - x1; i++) {
                             //Places the whole ship
-                            compGame[y1][i+x1] = ships[ship];
+                            game[y1][i+x1] = ships[ship];
                         }
                     }
                 }
@@ -185,7 +174,7 @@ public class Board {
                     y2 = y1+((int)(ships[ship]));
                     for (int i = 0; i < y2 - y1; i++) {
                         //Check to make sure ships do not overlap
-                        if (compGame[i+y1][x1] != 0) {
+                        if (game[i+y1][x1] != 0) {
                             overLap = true;
                             compatible = false;
                         }
@@ -196,7 +185,7 @@ public class Board {
                     if (compatible) {
                         for (int i = 0; i < y2 - y1; i++) {
                             //Places the whole ship
-                            compGame[i+y1][x1] = ships[ship];
+                            game[i+y1][x1] = ships[ship];
                         } // closes for loop
                     } //closes compatible if statement
                 } //closes else if
@@ -204,22 +193,6 @@ public class Board {
         } //Closes for loop
     } //Closes the computer setup method
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public void play() {
-
-    }
 }
 
 
