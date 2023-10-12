@@ -2,10 +2,6 @@ import java.util.Scanner;
 
 public class Board {
     Scanner scan = new Scanner(System.in);
-    int numRows = 10;
-    int numCols = 10;
-    int[] ships = {2, 3, 3, 4, 5};
-    int[][] game = new int[numRows][numCols];
 
     // Set up vars
     String coord1;
@@ -19,11 +15,21 @@ public class Board {
     boolean overLap = true;
     boolean compatible = false;
     int midpt;
+    int boardLen;
+    int [][] game;
+    int[] ships = {2, 3, 3, 4, 5};
+
+    //initiates the boardLen variable that is passed in
+    public Board(int boardSize) {
+        boardLen = boardSize;
+        game = new int[boardSize][boardSize];
+    }
+
 
     //Prints the board
     public void printBoard() {
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
+        for (int i = 0; i < boardLen; i++) {
+            for (int j = 0; j < boardLen; j++) {
                 System.out.print(game[i][j] + " ");
             }
             System.out.println("");
@@ -145,8 +151,8 @@ public class Board {
             while (overLap) {
                 compatible = true;
                 //creates a random starting coordinate that will not exceed the board
-                y1 = (int) (Math.random()*(10-ships[ship]));
-                x1 = (int) (Math.random()*(10-ships[ship]));
+                y1 = (int) (Math.random()*(boardLen-ships[ship]));
+                x1 = (int) (Math.random()*(boardLen-ships[ship]));
 
                 compDirection = (int) (Math.random()*2);
                 //After creating random direction, checks which direction and then fills in the correct amount of pegs
@@ -154,6 +160,7 @@ public class Board {
                 if (compDirection == 1) {
                     y2 = y1;
                     x2 = x1+((int)(ships[ship]));
+                    
                     for (int i = 0; i < x2 - x1; i++) {
                         //Check to make sure ships do not overlap
                         if (game[y1][i+x1] != 0) {
@@ -175,14 +182,11 @@ public class Board {
                     for (int i = 0; i < y2 - y1; i++) {
                         //Check to make sure ships do not overlap
                         if (game[i+y1][x1] != 0) {
-                            overLap = true;
                             compatible = false;
-                        }
-                        else {
-                            overLap = false;
-                        }//closes else loop
+                        }   
                     } //closes for loop
                     if (compatible) {
+                        overLap = false;
                         for (int i = 0; i < y2 - y1; i++) {
                             //Places the whole ship
                             game[i+y1][x1] = ships[ship];
