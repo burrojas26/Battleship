@@ -1,5 +1,6 @@
 public class Tester {
     public static void main(String[] args) {
+        //initiates intro and finds game mode
         Intro welcome = new Intro();
         String mode = welcome.mode();
         if (mode.equals("fast")) {
