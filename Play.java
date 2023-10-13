@@ -7,6 +7,7 @@ public class Play {
     String input;
     int y;
     int x;
+    boolean allDead = false;
     /* 
     Gets a guess from either the computer or the player
     Format to a string and check the input format
@@ -14,6 +15,7 @@ public class Play {
     */
     public String getGuess(String inputType, int boardLen) {
         Scanner scan = new Scanner(System.in);
+        compatible = false;
         if (inputType.equals("user")) {
             while (compatible == false) {
                 System.out.println("Enter your guess. (Letter, Number): ");
@@ -31,12 +33,10 @@ public class Play {
             //creates a random starting coordinate that will not exceed the board
             y = (int) (Math.random()*boardLen) + 'A';
             y = (char)y;
-            System.out.println(y);
             x = (int) (Math.random()*boardLen) + 1;
             input = (char)y + ", " + x;
 
         }
-        System.out.println("Input: " + input);
         return input;
     }
 
@@ -51,7 +51,6 @@ public class Play {
             }
         }
         y = (int) (guess.charAt(0));
-        System.out.println(guess);
         //A = 65
         //J = 74
         //Checks to make sure the coordinate is in the range
@@ -69,7 +68,6 @@ public class Play {
         }
 
         //returns true if the coord passes all of the above
-        System.out.println("The computer guessed " + input);
         return true;
     }
 
@@ -85,22 +83,26 @@ public class Play {
 
         //Checks if there is a ship and marks if so
         if (board.checkCoord(y, x) != 0 && board.checkCoord(y, x) != 7) {
+            System.out.println("Ship Hit");
             board.changeCoord(y, x, 7);
         }
-
+        else {
+            System.out.println("Miss");
+        }
         //Checks if all ships are dead
+        allDead = true;
         for (int i = 0; i < boardLen; i++) {
             for (int j = 0; j < boardLen; j++) {
                 if (board.checkCoord(i, j) != 0 && board.checkCoord(i, j) != 7) {
-                    return board;
-                }
-                else {
-                    Board end = new Board(boardLen);
-                    return end;
-
+                    allDead = false;
                 }
             }
         }
+        if (allDead == true) {
+            Board end = new Board(boardLen);
+            return end;
+        }
+        return board;
     }
 
 }

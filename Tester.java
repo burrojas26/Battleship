@@ -11,21 +11,25 @@ public class Tester {
         String [] pPrevGuess = {};
         String [] cPrevGuess = {};
         boolean gameOver = false;
+        boolean playerWin = false;
+        boolean compWin = false;
+        boolean playerCheck;
+        boolean compCheck;
 
         if (mode.equals("fast")) {
             //Creates boards and sets them up
-            System.out.println("Hello WOrld");
             Board playerBoard = new Board(8);
             Board compBoard = new Board(8);
             compBoard.compSetup();
             playerBoard.compSetup();
-            System.out.println("This is your board: ");
-            playerBoard.printBoard();
             
             //gets guesses
             while (gameOver == false) {
                 System.out.println("This is your board: ");
                 playerBoard.printBoard();
+                System.out.println("");
+                System.out.println("This is the computer's board: ");
+                compBoard.printBoard();
 
                 playerGuess = gamePlay.getGuess("user", 8);
                 while (guessWorks == false) {
@@ -36,33 +40,48 @@ public class Tester {
                     System.out.println("Pl: " + playerGuess);
 
                     //checks if the guesses are valid
-                    if (gamePlay.checkGuess(playerGuess, pPrevGuess) == true && gamePlay.checkGuess(compGuess, cPrevGuess) == true) {
+                    playerCheck = gamePlay.checkGuess(playerGuess, pPrevGuess);
+                    compCheck = gamePlay.checkGuess(compGuess, cPrevGuess);
+                    if (playerCheck && compCheck) {
                         guessWorks = true;
                     }
                 }
 
                 //Marks the shots if applicable & checks for end of game
-                playerBoard = gamePlay.markShip(playerBoard, playerGuess, 8);
-                compBoard = gamePlay.markShip(compBoard, compGuess, 8);
+                System.out.println("Player: ");
+                compBoard = gamePlay.markShip(compBoard, playerGuess, 8);
+                System.out.println("Computer: ");
+                playerBoard = gamePlay.markShip(playerBoard, compGuess, 8);
 
                 //Checks if game is over
+                gameOver = true;
+                compWin = true;
+                playerWin = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        if (playerBoard.checkCoord(i, j) != 0 && playerBoard.checkCoord(i, j) != 7) {
-                            System.out.println("Computer Wins!");
-                            gameOver = true;
+                        if (playerBoard.checkCoord(i, j) != 0) {
+                            gameOver = false;
+                            playerWin = false;
                         }
                     }
                 }
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        if (compBoard.checkCoord(i, j) != 0 && compBoard.checkCoord(i, j) != 7) {
-                            System.out.println("You Win!");
-                            gameOver = true;
+                        if (compBoard.checkCoord(i, j) != 0) {
+                            if (gameOver) {
+                                gameOver = false;
+                            }
+                            compWin = false;
                         }
                     }
                 }
             } //Closes while
+            if (playerWin) {
+                System.out.println("YOU WIN!");
+            }
+            else if (compWin) {
+                System.out.println("COMPUTER WINS!");
+            }
         } //Closes if
         else if (mode.equals("norm")) {
             //Creates board and sets it up
