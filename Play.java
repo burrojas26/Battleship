@@ -85,7 +85,7 @@ public class Play {
 
         //Checks if there is a ship and marks if so
         if (board.checkCoord(y, x) != 0 && board.checkCoord(y, x) != 7) {
-            board.changeCoord(y, x, 7); //possible issue with showing globally
+            board.changeCoord(y, x, 7);
         }
 
         //Checks if all ships are dead
