@@ -25,6 +25,16 @@ public class Board {
         game = new int[boardSize][boardSize];
     }
 
+    //checks a coordinate
+    public int checkCoord(int row, int column) {
+        return game[row][column];
+    }
+
+    //changes a coordinate
+    public int[][] changeCoord(int row, int column, int num) {
+        game[row][column] = num;
+        return game;
+    }
 
     //Prints the board
     public void printBoard() {

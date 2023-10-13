@@ -5,28 +5,35 @@ public class Tester {
         String mode = welcome.mode();
         Play gamePlay = new Play();
 
-        String playerGuess;
-        String compGuess;
+        String playerGuess = "";
+        String compGuess = "";
         boolean guessWorks = false;
-        String [] pPrevGuess;
-        String [] cPrevGuess;
+        String [] pPrevGuess = {};
+        String [] cPrevGuess = {};
         boolean gameOver = false;
 
         if (mode.equals("fast")) {
             //Creates boards and sets them up
+            System.out.println("Hello WOrld");
             Board playerBoard = new Board(8);
             Board compBoard = new Board(8);
             compBoard.compSetup();
             playerBoard.compSetup();
+            System.out.println("This is your board: ");
+            playerBoard.printBoard();
             
             //gets guesses
-            while (gameOver = false) {
+            while (gameOver == false) {
                 System.out.println("This is your board: ");
                 playerBoard.printBoard();
 
+                playerGuess = gamePlay.getGuess("user", 8);
                 while (guessWorks == false) {
-                    playerGuess = gamePlay.getGuess("user", 8);
+                    
                     compGuess = gamePlay.getGuess("ai", 8);
+
+                    System.out.println("Comp: " + compGuess);
+                    System.out.println("Pl: " + playerGuess);
 
                     //checks if the guesses are valid
                     if (gamePlay.checkGuess(playerGuess, pPrevGuess) == true && gamePlay.checkGuess(compGuess, cPrevGuess) == true) {
@@ -41,7 +48,7 @@ public class Tester {
                 //Checks if game is over
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        if (playerBoard[i][j] != 0 && playerBoard[i][j] != 7) {
+                        if (playerBoard.checkCoord(i, j) != 0 && playerBoard.checkCoord(i, j) != 7) {
                             System.out.println("Computer Wins!");
                             gameOver = true;
                         }
@@ -49,7 +56,7 @@ public class Tester {
                 }
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        if (compBoard[i][j] != 0 && compBoard[i][j] != 7) {
+                        if (compBoard.checkCoord(i, j) != 0 && compBoard.checkCoord(i, j) != 7) {
                             System.out.println("You Win!");
                             gameOver = true;
                         }
@@ -58,16 +65,36 @@ public class Tester {
             } //Closes while
         } //Closes if
         else if (mode.equals("norm")) {
-            //Creates boards and sets them up
+            //Creates board and sets it up
             Board playerBoard = new Board(10);
-            Board compBoard = new Board(10);
-            compBoard.compSetup();
             playerBoard.setup();
             System.out.println("This is your board: ");
             playerBoard.printBoard();
 
-            
+            //gets guesses
+            while (gameOver = false) {
+                while (guessWorks == false) {
+                    playerGuess = gamePlay.getGuess("user", 8);
 
+                    //checks if the guesses are valid
+                    if (gamePlay.checkGuess(playerGuess, pPrevGuess) == true) {
+                        guessWorks = true;
+                    }
+                }
+
+                //Marks the shots if applicable & checks for end of game
+                playerBoard = gamePlay.markShip(playerBoard, playerGuess, 8);
+
+                //Checks if game is over
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (playerBoard.checkCoord(i, j) != 0 && playerBoard.checkCoord(i, j) != 7) {
+                            System.out.println("You Win!");
+                            gameOver = true;
+                        }
+                    }
+                }
+            } //Closes while
         }
     }
 }
