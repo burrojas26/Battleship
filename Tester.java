@@ -28,16 +28,15 @@ public class Tester {
                 System.out.println("This is your board: ");
                 playerBoard.printBoard();
                 System.out.println("");
-                System.out.println("This is the computer's board: ");
-                compBoard.printBoard();
 
                 playerGuess = gamePlay.getGuess("user", 8);
                 while (guessWorks == false) {
                     
                     compGuess = gamePlay.getGuess("ai", 8);
 
-                    System.out.println("Comp: " + compGuess);
-                    System.out.println("Pl: " + playerGuess);
+                    System.out.println("Computer guess: " + compGuess);
+                    System.out.println("Player guess: " + playerGuess);
+                    System.out.println("");
 
                     //checks if the guesses are valid
                     playerCheck = gamePlay.checkGuess(playerGuess, pPrevGuess);
@@ -48,30 +47,32 @@ public class Tester {
                 }
 
                 //Marks the shots if applicable & checks for end of game
-                System.out.println("Player: ");
+                System.out.print("Player: ");
                 compBoard = gamePlay.markShip(compBoard, playerGuess, 8);
-                System.out.println("Computer: ");
+                System.out.print("Computer: ");
                 playerBoard = gamePlay.markShip(playerBoard, compGuess, 8);
 
                 //Checks if game is over
                 gameOver = true;
                 compWin = true;
-                playerWin = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
                         if (playerBoard.checkCoord(i, j) != 0) {
                             gameOver = false;
-                            playerWin = false;
+                            compWin = false;
                         }
                     }
                 }
+                if (gameOver) {
+                    continue;
+                }
+                gameOver = true;
+                playerWin = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
                         if (compBoard.checkCoord(i, j) != 0) {
-                            if (gameOver) {
-                                gameOver = false;
-                            }
-                            compWin = false;
+                            gameOver = false;
+                            playerWin = false;
                         }
                     }
                 }
@@ -91,9 +92,11 @@ public class Tester {
             playerBoard.printBoard();
 
             //gets guesses
-            while (gameOver = false) {
+            gameOver = false;
+            while (gameOver == false) {
+                guessWorks = false;
                 while (guessWorks == false) {
-                    playerGuess = gamePlay.getGuess("user", 8);
+                    playerGuess = gamePlay.getGuess("user", 10);
 
                     //checks if the guesses are valid
                     if (gamePlay.checkGuess(playerGuess, pPrevGuess) == true) {
@@ -102,18 +105,20 @@ public class Tester {
                 }
 
                 //Marks the shots if applicable & checks for end of game
-                playerBoard = gamePlay.markShip(playerBoard, playerGuess, 8);
+                playerBoard = gamePlay.markShip(playerBoard, playerGuess, 10);
 
                 //Checks if game is over
-                for (int i = 0; i < 8; i++) {
-                    for (int j = 0; j < 8; j++) {
+                gameOver = true;
+                //System.out.println("Hi");
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 10; j++) {
                         if (playerBoard.checkCoord(i, j) != 0 && playerBoard.checkCoord(i, j) != 7) {
-                            System.out.println("You Win!");
-                            gameOver = true;
+                            gameOver = false;
                         }
                     }
                 }
             } //Closes while
+            System.out.println("YOU WIN!");
         }
     }
 }

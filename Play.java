@@ -18,8 +18,9 @@ public class Play {
         compatible = false;
         if (inputType.equals("user")) {
             while (compatible == false) {
-                System.out.println("Enter your guess. (Letter, Number): ");
+                System.out.print("Enter your guess. (Letter, Number): ");
                 input = scan.nextLine().toUpperCase();
+                System.out.println("");
                 if (input.length() < 4 || input.length() > 5) {
                     System.out.println("Incompatible coordinates. Please try again.");
                     continue;
