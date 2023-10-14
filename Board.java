@@ -40,7 +40,37 @@ public class Board {
     public void printBoard() {
         for (int i = 0; i < boardLen; i++) {
             for (int j = 0; j < boardLen; j++) {
-                System.out.print(game[i][j] + " ");
+                if (game[i][j] == 0) {
+                    System.out.print("0 ");
+                }
+                else if (game[i][j] == 7) {
+                    System.out.print("X ");
+                }
+                else if (game[i][j] == 6) {
+                    System.out.print("# ");
+                }
+                else {
+                    System.out.print(game[i][j] + " ");
+                }
+            }
+            System.out.println("");
+        }
+    }
+
+    //Prints the computer's board without showing the ships that you have not hit - for fast  mode
+    public void printHidden() {
+        for (int i = 0; i < boardLen; i++) {
+            for (int j = 0; j < boardLen; j++) {
+                if (game[i][j] == 7) {
+                    System.out.print("X ");
+                }
+                else if (game[i][j] == 6) {
+                    System.out.print("# ");
+                }
+                else {
+                    System.out.print("O ");
+                }
+                
             }
             System.out.println("");
         }

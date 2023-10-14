@@ -44,7 +44,7 @@ public class Play {
 
     //Error checking the coordinate 
     //Returns a boolean wether the coord is compatible
-    public boolean checkGuess(String guess, String[] prevGuess) {
+    public boolean checkGuess(String guess, String[] prevGuess, int boardLen) {
         //Checking to see if the guess has already been guessed
         for (int i = 0; i < prevGuess.length; i++) {
             if (prevGuess[i] == guess) {
@@ -55,7 +55,7 @@ public class Play {
         //A = 65
         //J = 74
         //Checks to make sure the coordinate is in the range
-        if (y >= 65 && y <= 74) {
+        if (y >= 65 && y <= 65 + (boardLen-1)) {
             y -= 'A';
         }
         else {
@@ -64,7 +64,7 @@ public class Play {
         //Gets first int in guess
         int midpt = guess.indexOf(",");
         x = Integer.parseInt(guess.substring(midpt+2)) - 1;
-        if (x < 0 || x > 10) {
+        if (x < 0 || x > boardLen) {
             return false;
         }
 
@@ -74,7 +74,6 @@ public class Play {
 
     //Marks the hit on the board if a ship is hit and documents the shot
     //returns a boolean whether the ship is hit or not
-    //RETURN TYPE ERROR PREVENTS CODE FROM RUNNNING
     public Board markShip(Board board, String guess, int boardLen) {
 
         //Translating guess to integers
@@ -83,12 +82,13 @@ public class Play {
         x = Integer.parseInt(guess.substring(midpt+2)) - 1;
 
         //Checks if there is a ship and marks if so
-        if (board.checkCoord(y, x) != 0 && board.checkCoord(y, x) != 7) {
+        if (board.checkCoord(y, x) != 0 && board.checkCoord(y, x) != 7 && board.checkCoord(y, x) != 6) {
             System.out.println("Ship Hit");
             board.changeCoord(y, x, 7);
         }
-        else {
+        else if (board.checkCoord(y, x) == 0) {
             System.out.println("Miss");
+            board.changeCoord(y, x, 6);
         }
         //Checks if all ships are dead
         allDead = true;

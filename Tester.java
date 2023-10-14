@@ -13,8 +13,8 @@ public class Tester {
         boolean gameOver = false;
         boolean playerWin = false;
         boolean compWin = false;
-        boolean playerCheck;
-        boolean compCheck;
+        boolean playerCheck = false;;
+        boolean compCheck = false;
 
         if (mode.equals("fast")) {
             //Creates boards and sets them up
@@ -25,24 +25,40 @@ public class Tester {
             
             //gets guesses
             while (gameOver == false) {
+                if (guessWorks) {
+                    guessWorks = false;
+                    System.out.println("");
+                }
                 System.out.println("This is your board: ");
                 playerBoard.printBoard();
                 System.out.println("");
+                System.out.println("This is the computer's board: ");
+                compBoard.printHidden();
+                System.out.println("");
 
-                playerGuess = gamePlay.getGuess("user", 8);
+                playerCheck = false;
+                compCheck = false;
                 while (guessWorks == false) {
                     
-                    compGuess = gamePlay.getGuess("ai", 8);
+                    if (playerCheck == false) {
+                        playerGuess = gamePlay.getGuess("user", 8);
+                    }
+                    if (compCheck == false) {
+                        compGuess = gamePlay.getGuess("ai", 8);
+                    }
 
                     System.out.println("Computer guess: " + compGuess);
                     System.out.println("Player guess: " + playerGuess);
                     System.out.println("");
 
                     //checks if the guesses are valid
-                    playerCheck = gamePlay.checkGuess(playerGuess, pPrevGuess);
-                    compCheck = gamePlay.checkGuess(compGuess, cPrevGuess);
+                    playerCheck = gamePlay.checkGuess(playerGuess, pPrevGuess, 8);
+                    compCheck = gamePlay.checkGuess(compGuess, cPrevGuess, 8);
                     if (playerCheck && compCheck) {
                         guessWorks = true;
+                    }
+                    else {
+                        System.out.println("Incompatible coordinate, please try again");
                     }
                 }
 
@@ -88,18 +104,21 @@ public class Tester {
             //Creates board and sets it up
             Board playerBoard = new Board(10);
             playerBoard.setup();
-            System.out.println("This is your board: ");
-            playerBoard.printBoard();
+            System.out.println("Board complete, now let the other player guess");
+            System.out.println("");
 
             //gets guesses
             gameOver = false;
             while (gameOver == false) {
                 guessWorks = false;
+                System.out.println("This is the other player's board: ");
+                playerBoard.printHidden();
+                System.out.println("");
                 while (guessWorks == false) {
                     playerGuess = gamePlay.getGuess("user", 10);
 
                     //checks if the guesses are valid
-                    if (gamePlay.checkGuess(playerGuess, pPrevGuess) == true) {
+                    if (gamePlay.checkGuess(playerGuess, pPrevGuess, 10) == true) {
                         guessWorks = true;
                     }
                 }
