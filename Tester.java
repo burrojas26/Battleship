@@ -1,9 +1,20 @@
+import java.util.Scanner;
+
+/**
+ * Tester.java
+ * @author Jasper Burroughs
+ * @since 9/28/23
+ * This class contains the main method to run the program
+ * it loops through asking for a guess until you enter a valid guess and then it loops through asking for guesses until you hit of all the ships
+ */
+
 public class Tester {
     public static void main(String[] args) {
         //initiates intro and finds game mode
         Intro welcome = new Intro();
         String mode = welcome.mode();
         Play gamePlay = new Play();
+        Scanner scan = new Scanner(System.in);
 
         String playerGuess = "";
         String compGuess = "";
@@ -25,6 +36,9 @@ public class Tester {
             
             //gets guesses
             while (gameOver == false) {
+                System.out.println("Press enter to continue");
+                scan.nextLine();
+                System.out.println("\033[H\033[2J"); //Clears console
                 if (guessWorks) {
                     guessWorks = false;
                     System.out.println("");
@@ -34,6 +48,7 @@ public class Tester {
                 System.out.println("");
                 System.out.println("This is the computer's board: ");
                 compBoard.printHidden();
+                //compBoard.printRawBoard(); - used when testing
                 System.out.println("");
 
                 playerCheck = false;
@@ -61,12 +76,13 @@ public class Tester {
                         System.out.println("Incompatible coordinate, please try again");
                     }
                 }
-
+                
                 //Marks the shots if applicable & checks for end of game
                 System.out.print("Player: ");
                 compBoard = gamePlay.markShip(compBoard, playerGuess, 8);
                 System.out.print("Computer: ");
                 playerBoard = gamePlay.markShip(playerBoard, compGuess, 8);
+                System.out.println("");
 
                 //Checks if game is over
                 gameOver = true;

@@ -1,5 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * Board.java
+ * @author Jasper Burroughs
+ * @since 9/28/23
+ * This class contains methods to set up the board based on the player's inputs and can set up the board using ai
+ * This class also contains methods to check the coordinate of a board and change the coordinates of a board
+ * The class contains methods to print the board and print the board without showing ships as well
+ */
+
 public class Board {
     Scanner scan = new Scanner(System.in);
 
@@ -52,6 +61,16 @@ public class Board {
                 else {
                     System.out.print(game[i][j] + " ");
                 }
+            }
+            System.out.println("");
+        }
+    }
+
+    //Prints the board in integer format - used for testing
+    public void printRawBoard() {
+        for (int i = 0; i < boardLen; i++) {
+            for (int j = 0; j < boardLen; j++) {
+                System.out.print(game[i][j] + " ");
             }
             System.out.println("");
         }

@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+/**
+ * Play.java
+ * @author Jasper Burroughs
+ * @since 10/12/23
+ * This class contains three methods that get a users guess, verify the guess, and mark the guess on the board
+ */
+
 public class Play {
     
     //Declaring variables
@@ -42,8 +49,9 @@ public class Play {
     }
 
 
-    //Error checking the coordinate 
-    //Returns a boolean wether the coord is compatible
+    /* Error checking the coordinate 
+    Returns a boolean wether the coord is compatible
+    */
     public boolean checkGuess(String guess, String[] prevGuess, int boardLen) {
         //Checking to see if the guess has already been guessed
         for (int i = 0; i < prevGuess.length; i++) {
@@ -72,8 +80,10 @@ public class Play {
         return true;
     }
 
-    //Marks the hit on the board if a ship is hit and documents the shot
-    //returns a boolean whether the ship is hit or not
+    /* Marks the hit on the board if a ship is hit and documents the shot
+    returns a Board class with the updated marks (did the shot hit the ship or not)
+    Returns an empty Board if all ships have been hit
+    */
     public Board markShip(Board board, String guess, int boardLen) {
 
         //Translating guess to integers
@@ -94,7 +104,7 @@ public class Play {
         allDead = true;
         for (int i = 0; i < boardLen; i++) {
             for (int j = 0; j < boardLen; j++) {
-                if (board.checkCoord(i, j) != 0 && board.checkCoord(i, j) != 7) {
+                if (board.checkCoord(i, j) != 0 && board.checkCoord(i, j) != 7 && board.checkCoord(i, j) != 6) {
                     allDead = false;
                 }
             }
