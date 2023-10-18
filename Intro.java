@@ -19,8 +19,11 @@ public class Intro {
         while (!compatible) {
             System.out.println("Enter F for fast mode or N for normal mode: ");
             optionRaw = scan.nextLine();
-            if (optionRaw != "") {
+            if (optionRaw != "" && optionRaw.length() == 1) {
                 option = optionRaw.toUpperCase().charAt(0);
+            }
+            else {
+                System.out.println("Incompatible input. Please try again");
             }
             if (option == 'F' || option == 'N') {
                 compatible = true;
