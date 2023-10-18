@@ -36,7 +36,7 @@ public class Tester {
             
             //gets guesses
             while (gameOver == false) {
-                System.out.println("Press enter to continue");
+                System.out.println("Press enter to contiue. ");
                 scan.nextLine();
                 System.out.println("\033[H\033[2J"); //Clears console
                 if (guessWorks) {
@@ -121,7 +121,9 @@ public class Tester {
             Board playerBoard = new Board(10);
             playerBoard.setup();
             System.out.println("Board complete, now let the other player guess");
-            System.out.println("");
+            System.out.println("Press enter to continue.");
+            scan.nextLine();
+            System.out.println("\033[H\033[2J"); //Clears console
 
             //gets guesses
             gameOver = false;
