@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class Intro {
     Scanner scan = new Scanner(System.in);
+    String optionRaw;
     char option;
     boolean compatible = false;
     
@@ -17,7 +18,13 @@ public class Intro {
     public String mode() {
         while (!compatible) {
             System.out.println("Enter F for fast mode or N for normal mode: ");
-            option = (scan.nextLine().toUpperCase()).charAt(0);
+            optionRaw = scan.nextLine();
+            if (optionRaw != "" && optionRaw.length() == 1) {
+                option = optionRaw.toUpperCase().charAt(0);
+            }
+            else {
+                System.out.println("Incompatible input. Please try again");
+            }
             if (option == 'F' || option == 'N') {
                 compatible = true;
             }
