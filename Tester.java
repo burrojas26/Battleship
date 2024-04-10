@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 /**
  * Tester.java
  * @author Jasper Burroughs
